@@ -1,0 +1,14 @@
+workspace {
+
+    model {
+        user = person "User"
+        softwareSystem = softwareSystem "Nifty Cool Business" {
+            webapp = container "Web Application"
+            api = container "API"
+         }
+
+        user -> webapp "Uses"
+        webapp -> api "Reads from and writes to"
+    }
+
+}
