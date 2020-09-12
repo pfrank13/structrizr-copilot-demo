@@ -12,20 +12,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.*;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CopilotConverterTest {
   private CopilotConverter copilotConverter;
+  private Workspace workspace;
 
   @BeforeEach
-  void setUp() {
-    copilotConverter =  new CopilotConverter();
-  }
-
-  @Test
-  void convert() throws IOException, StructurizrDslParserException {
+  void setUp() throws IOException, StructurizrDslParserException {
+    copilotConverter =  new CopilotConverter("Nifty Cool Business");
     final StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
     final Resource resource = new ClassPathResource("system.c4");
     final byte[] fileContents = FileCopyUtils.copyToByteArray(new BufferedInputStream(resource.getInputStream()));
@@ -33,13 +27,32 @@ class CopilotConverterTest {
     IOUtils.write(fileContents, new FileOutputStream(tempDslFile));
 
     structurizrDslParser.parse(tempDslFile);
-    final Workspace workspace = structurizrDslParser.getWorkspace();
+    this.workspace = structurizrDslParser.getWorkspace();
+  }
 
-    final Set<Application> applications = copilotConverter.convert(workspace);
+  @Test
+  public void convert() {
+    final Application application = copilotConverter.convert(workspace);
 
-    Assertions.assertThat(applications).hasSize(1);
-    for(Application application : applications){
-      Assertions.assertThat(application.getServices()).hasSize(2);
+    Assertions.assertThat(application).isNotNull();
+    Assertions.assertThat(application.getServices()).hasSize(2);
+    for(Service service : application.getServices()){
+      if(service.getName().equals("Web Application")) {
+        Assertions.assertThat(service.getType()).isSameAs(Service.Type.FRONT_END);
+      }
+      if(service.getName().equals("API")){
+        Assertions.assertThat(service.getType()).isSameAs(Service.Type.BACK_END);
+      }
     }
+  }
+
+  @Test
+  public void targetSoftwareSystemNotFound(){
+    Assertions.assertThatThrownBy(() -> {
+      final var copilotConverter = new CopilotConverter("NotFound");
+      copilotConverter.convert(workspace);
+    }).isInstanceOf(IllegalStateException.class)
+        .hasMessage("No SoftwareSystem found for description 'NotFound'")
+        .hasNoCause();
   }
 }
