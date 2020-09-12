@@ -6,8 +6,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +33,6 @@ class ScriptGeneratorTest {
     scriptGenerator.generate();
 
     final List<String> renderedLines = FileUtils.readLines(outFile, StandardCharsets.UTF_8);
-    Assertions.assertThat(renderedLines).containsExactlyElementsOf(expectedLines);
+    Assertions.assertThat(renderedLines).containsExactlyInAnyOrderElementsOf(expectedLines);
   }
 }
