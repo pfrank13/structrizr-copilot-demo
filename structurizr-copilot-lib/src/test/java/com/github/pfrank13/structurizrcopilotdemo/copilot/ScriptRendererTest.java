@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ScriptRendererTest {
   private ScriptRenderer scriptRenderer;
 
@@ -24,12 +22,12 @@ class ScriptRendererTest {
     final Application application = new Application("1", "Nifty Cool Business", ImmutableSet.of(webApplication, apiApplication));
     final Environment environment = new Environment("test");
     final List<String> lines = scriptRenderer.render(application, ImmutableSet.of(environment));
-    for(var line : lines){
+    for (var line : lines) {
       System.out.print(line);
     }
   }
 
-  String formatName(final String name){
+  String formatName(final String name) {
     return name.toLowerCase(Locale.US).replace(" ", "-");
   }
 }

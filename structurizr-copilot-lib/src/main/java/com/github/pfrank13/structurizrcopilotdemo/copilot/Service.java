@@ -40,7 +40,7 @@ public class Service {
     return Objects.hash(id);
   }
 
-  public enum Type{
+  public enum Type {
     FRONT_END("Load Balanced Web Service"),
     BACK_END("Backend Service");
 

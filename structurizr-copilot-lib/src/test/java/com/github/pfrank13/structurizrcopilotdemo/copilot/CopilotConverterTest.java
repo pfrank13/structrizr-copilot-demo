@@ -16,7 +16,7 @@ class CopilotConverterTest {
 
   @BeforeEach
   void setUp() throws IOException, StructurizrDslParserException {
-    copilotConverter =  new CopilotConverter("Nifty Cool Business");
+    copilotConverter = new CopilotConverter("Nifty Cool Business");
     final StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
     final InputStream resource = CopilotConverterTest.class.getResourceAsStream("/system.c4");
     final ByteArrayOutputStream fileContents = new ByteArrayOutputStream();
@@ -34,18 +34,18 @@ class CopilotConverterTest {
 
     Assertions.assertThat(application).isNotNull();
     Assertions.assertThat(application.getServices()).hasSize(2);
-    for(Service service : application.getServices()){
-      if(service.getName().equals("Web Application")) {
+    for (Service service : application.getServices()) {
+      if (service.getName().equals("Web Application")) {
         Assertions.assertThat(service.getType()).isSameAs(Service.Type.FRONT_END);
       }
-      if(service.getName().equals("API")){
+      if (service.getName().equals("API")) {
         Assertions.assertThat(service.getType()).isSameAs(Service.Type.BACK_END);
       }
     }
   }
 
   @Test
-  public void targetSoftwareSystemNotFound(){
+  public void targetSoftwareSystemNotFound() {
     Assertions.assertThatThrownBy(() -> {
       final var copilotConverter = new CopilotConverter("NotFound");
       copilotConverter.convert(workspace);

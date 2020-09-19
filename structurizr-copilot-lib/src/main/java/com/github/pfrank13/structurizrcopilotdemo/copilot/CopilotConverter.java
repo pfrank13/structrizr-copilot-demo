@@ -25,11 +25,11 @@ public class CopilotConverter {
     afterPropertiesSet();
   }
 
-  private void afterPropertiesSet(){
+  private void afterPropertiesSet() {
     Verify.verify(!Strings.isNullOrEmpty(targetSoftwareSystemName), "No Target Software System defined");
   }
 
-  public Application convert(final Workspace workspace){
+  public Application convert(final Workspace workspace) {
     final Set<SoftwareSystem> softwareSystems = workspace.getModel().getSoftwareSystems();
     Verify.verify(softwareSystems.size() > 0, "No SoftwareSystem instances found, nothing to do");
     final SoftwareSystem targetSoftwareSystem = findTargetSoftwareSystem(softwareSystems)
@@ -41,7 +41,7 @@ public class CopilotConverter {
     final Set<Container> containers = targetSoftwareSystem.getContainers();
     Verify.verify(containers.size() > 0, "No container instances found, nothing to do");
     final Set<Service> services = new LinkedHashSet<>(containers.size());
-    for(Container container : containers){
+    for (Container container : containers) {
       final Service.Type serviceType = determineContainerType(container, softwareSystemsToExplore, workspace.getModel().getPeople());
       final Service service = new Service(container.getId(), container.getName(), serviceType);
       services.add(service);
@@ -49,22 +49,22 @@ public class CopilotConverter {
     return new Application(targetSoftwareSystem.getId(), targetSoftwareSystem.getName(), services);
   }
 
-  Optional<SoftwareSystem> findTargetSoftwareSystem(final Set<SoftwareSystem> softwareSystems){
+  Optional<SoftwareSystem> findTargetSoftwareSystem(final Set<SoftwareSystem> softwareSystems) {
     return softwareSystems.stream().filter(softwareSystem -> softwareSystem.getName().equals(targetSoftwareSystemName)).findFirst();
   }
 
-  Service.Type determineContainerType(final Container targetContainer, final Set<SoftwareSystem> softwareSystems, final Set<Person> persons){
-    for(SoftwareSystem softwareSystem : softwareSystems){
-      for(Relationship relationship : softwareSystem.getRelationships()){
-        if(relationship.getDestinationId().equals(targetContainer.getId())){
+  Service.Type determineContainerType(final Container targetContainer, final Set<SoftwareSystem> softwareSystems, final Set<Person> persons) {
+    for (SoftwareSystem softwareSystem : softwareSystems) {
+      for (Relationship relationship : softwareSystem.getRelationships()) {
+        if (relationship.getDestinationId().equals(targetContainer.getId())) {
           return Service.Type.FRONT_END; //This is an outside system calling this container
         }
       }
     }
 
-    for(Person person : persons){
-      for(Relationship relationship : person.getRelationships()){
-        if(relationship.getDestinationId().equals(targetContainer.getId())){
+    for (Person person : persons) {
+      for (Relationship relationship : person.getRelationships()) {
+        if (relationship.getDestinationId().equals(targetContainer.getId())) {
           return Service.Type.FRONT_END; //A Person is targeting this container
         }
       }

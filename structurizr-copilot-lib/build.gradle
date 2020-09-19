@@ -1,20 +1,20 @@
 plugins {
-    id 'java'
+  id 'java'
 }
 
 sourceCompatibility = '11'
 
 dependencies {
-    implementation 'com.structurizr:structurizr-core'
-    implementation 'commons-io:commons-io'
-    implementation 'com.google.guava:guava'
-    implementation files('lib/dsl-1.0.0.jar')
-    runtime files('./lib/dsl-1.0.0.jar')
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.assertj:assertj-core'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  implementation 'com.structurizr:structurizr-core'
+  implementation 'commons-io:commons-io'
+  implementation 'com.google.guava:guava'
+  implementation files('lib/dsl-1.0.0.jar')
+  runtime files('./lib/dsl-1.0.0.jar')
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.assertj:assertj-core'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 test {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }

@@ -3,33 +3,33 @@
  */
 package com.github.pfrank13
 
-import spock.lang.Specification
 import org.gradle.testkit.runner.GradleRunner
+import spock.lang.Specification
 
 /**
  * A simple functional test for the 'com.github.pfrank13.greeting' plugin.
  */
 public class StructurizrCopilotGradlepPluginFunctionalTest extends Specification {
-    def "can run task"() {
-        given:
-        def projectDir = new File("build/functionalTest")
-        projectDir.mkdirs()
-        new File(projectDir, "settings.gradle") << ""
-        new File(projectDir, "build.gradle") << """
+  def "can run task"() {
+    given:
+    def projectDir = new File("build/functionalTest")
+    projectDir.mkdirs()
+    new File(projectDir, "settings.gradle") << ""
+    new File(projectDir, "build.gradle") << """
             plugins {
                 id('com.github.pfrank13.structurizr-copilot')
             }
         """
 
-        when:
-        def runner = GradleRunner.create()
-        runner.forwardOutput()
-        runner.withPluginClasspath()
-        runner.withArguments("greeting")
-        runner.withProjectDir(projectDir)
-        def result = runner.build()
+    when:
+    def runner = GradleRunner.create()
+    runner.forwardOutput()
+    runner.withPluginClasspath()
+    runner.withArguments("greeting")
+    runner.withProjectDir(projectDir)
+    def result = runner.build()
 
-        then:
-        result.output.contains("Hello from plugin 'com.github.pfrank13.greeting'")
-    }
+    then:
+    result.output.contains("Hello from plugin 'com.github.pfrank13.greeting'")
+  }
 }

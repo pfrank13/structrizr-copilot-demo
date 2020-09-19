@@ -36,7 +36,7 @@ public class ScriptGenerator {
     afterPropertiesSet();
   }
 
-  private void afterPropertiesSet(){
+  private void afterPropertiesSet() {
     Verify.verify(!Strings.isNullOrEmpty(c4FileLocation), "File Location cannot be empty");
     Verify.verify(!Strings.isNullOrEmpty(targetSoftwareSystemName), "TargetSoftwareSystemName cannot be empty");
     Verify.verify(!Strings.isNullOrEmpty(outputFileLocation), "outputFileLocation cannot be empty");
@@ -58,8 +58,8 @@ public class ScriptGenerator {
     final List<String> lines = scriptRenderer.render(application, ImmutableSet.of(new Environment("test")));
 
     final File outFile = this.outfilePath.toFile();
-    try(final var writer = new FileWriter(outFile)){
-      for(var line : lines){
+    try (final var writer = new FileWriter(outFile)) {
+      for (var line : lines) {
         writer.write(line);
       }
     }

@@ -1,26 +1,26 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.3.RELEASE'
-    id 'java'
+  id 'org.springframework.boot' version '2.3.3.RELEASE'
+  id 'java'
 }
 
 sourceCompatibility = '11'
 
 dependencies {
-    implementation(project(':structurizr-copilot-lib'))
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'commons-io:commons-io'
-    implementation 'com.google.guava:guava'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+  implementation(project(':structurizr-copilot-lib'))
+  implementation 'org.springframework.boot:spring-boot-starter'
+  implementation 'commons-io:commons-io'
+  implementation 'com.google.guava:guava'
+  testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+  }
 }
 
 test {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
 
 bootRun {
-    if (project.hasProperty('args')) {
-        args project.args.split(',')
-    }
+  if (project.hasProperty('args')) {
+    args project.args.split(',')
+  }
 }

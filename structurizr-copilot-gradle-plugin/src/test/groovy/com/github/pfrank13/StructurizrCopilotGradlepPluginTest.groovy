@@ -4,21 +4,20 @@
 package com.github.pfrank13
 
 import org.gradle.testfixtures.ProjectBuilder
-import org.gradle.api.Project
 import spock.lang.Specification
 
 /**
  * A simple unit test for the 'com.github.pfrank13.greeting' plugin.
  */
 public class StructurizrCopilotGradlepPluginTest extends Specification {
-    def "plugin registers task"() {
-        given:
-        def project = ProjectBuilder.builder().build()
+  def "plugin registers task"() {
+    given:
+    def project = ProjectBuilder.builder().build()
 
-        when:
-        project.plugins.apply("com.github.pfrank13.structurizr-copilot")
+    when:
+    project.plugins.apply("com.github.pfrank13.structurizr-copilot")
 
-        then:
-        project.tasks.findByName("greeting") != null
-    }
+    then:
+    project.tasks.findByName("greeting") != null
+  }
 }
