@@ -6,6 +6,6 @@ $ ../gradlew bootRun -Pargs=--outFile=./out.sh,--c4File=./src/test/resources/sys
 Or alternatively after the jar is built
 ```
 $ cd ./structurizr-copilot-cli
-$ java -jar ./build/libs/structrizr-copilot-demo-0.0.1-SNAPSHOT.jar --outFile=./out.sh --c4File=./src/test/resources/system.c4 --targetSystemName="Nifty Cool Business"
+$ java -jar ./build/libs/structurizr-copilot-cli-0.0.1-SNAPSHOT.jar --outFile=./out.sh --c4File=./src/test/resources/system.c4 --targetSystemName="Nifty Cool Business"
 ```
 
