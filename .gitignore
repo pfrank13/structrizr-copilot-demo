@@ -1,6 +1,6 @@
 copilot
 test.sh
-out.sh
+**/out.sh
 HELP.md
 .gradle
 build/
