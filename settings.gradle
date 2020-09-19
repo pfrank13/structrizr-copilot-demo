@@ -1,1 +1,5 @@
 rootProject.name = 'structrizr-copilot-demo'
+
+include 'structurizr-copilot-lib'
+include 'structurizr-copilot-cli'
+include 'structurizr-copilot-gradle-plugin'
